@@ -5,7 +5,10 @@ public static class Program
     private static void Main()
     {
         Console.WriteLine("ADVENT OF CODE 2024");
+        Console.WriteLine("###################");
         var day01 = new Day01();
         day01.Runner();
+        var day02 = new Day02();
+        day02.Runner();
     }
 }

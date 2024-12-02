@@ -15,7 +15,7 @@ public class Day01(List<int> locations1, List<int> locations2)
         Console.WriteLine("DAY 1");
         Console.WriteLine($"Part 1: {solution1}");
         Console.WriteLine($"Part 2: {solution2}");
-        Console.WriteLine("###");
+        Console.WriteLine("###################");
     }
 
     private int SolvePartOne() 
