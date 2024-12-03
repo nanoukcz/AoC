@@ -10,5 +10,7 @@ public static class Program
         day01.Runner();
         var day02 = new Day02();
         day02.Runner();
+        var day03 = new Day03();
+        day03.Runner();
     }
 }
