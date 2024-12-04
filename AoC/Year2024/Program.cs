@@ -12,5 +12,8 @@ public static class Program
         day02.Runner();
         var day03 = new Day03();
         day03.Runner();
+        var day04 = new Day04();
+        day04.Runner();
     }
+    
 }

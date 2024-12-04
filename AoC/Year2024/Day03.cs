@@ -18,7 +18,7 @@ public class Day03
         var solution2 = SolvePartTwo();
         Console.WriteLine("DAY 3");
         Console.WriteLine($"Part 1: {solution1}");
-        Console.WriteLine($"Part 1: {solution2}");
+        Console.WriteLine($"Part 2: {solution2}");
         Console.WriteLine("###################");
     }
 
