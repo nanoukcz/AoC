@@ -18,7 +18,6 @@ public class Day04
     private int SolveBothParts(bool allDirections)
     {
         var result = 0;
-
         for (var i = 0; i < _lines.Length; i++)
         {
             for (var j = 0; j < _lines[i].Length; j++)
