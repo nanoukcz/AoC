@@ -1,34 +1,24 @@
 namespace AoC.Year2024;
 
-public class Day05
+public class Day05 : BaseDay
 {
-    private const string Path = "../../../Year2024/inputs/Day05.txt";
     private readonly Dictionary<int, List<int>> _edges = [];
     private readonly List<List<int>> _manuals = [];
-    private int _solution1, _solution2;
 
-    public void Runner()
+    protected override void ParseInput()
     {
-        ParseInput();
-        SolveBothParts();
-        Console.WriteLine("DAY 5");
-        Console.WriteLine($"Part 1: {_solution1}");
-        Console.WriteLine($"Part 2: {_solution2}");
-        Console.WriteLine("###################");
-    }
-
-    private void ParseInput()
-    {
-        foreach (var line in File.ReadLines(Path).Where(line => !string.IsNullOrEmpty(line)))
+        foreach (var line in File.ReadLines(InputFilePath).Where(line => !string.IsNullOrEmpty(line)))
         {
             if (line.Contains('|'))
             {
                 var nodes = line.Split('|').Select(int.Parse).ToArray();
-                if (!_edges.ContainsKey(nodes[0]))
+                if (!_edges.TryGetValue(nodes[0], out var value))
                 {
-                    _edges[nodes[0]] = [];
+                    value = [];
+                    _edges[nodes[0]] = value;
                 }
-                _edges[nodes[0]].Add(nodes[1]);
+
+                value.Add(nodes[1]);
             }
             else
             {
@@ -37,7 +27,7 @@ public class Day05
         }
     }
 
-    private void SolveBothParts()
+    protected override void SolveBothParts()
     {
         foreach (var manual in _manuals)
         {
@@ -46,11 +36,11 @@ public class Day05
 
             if (manual.SequenceEqual(sortedManual))
             {
-                _solution1 += middleValue;
+                Solution1 += middleValue;
             }
             else
             {
-                _solution2 += middleValue;
+                Solution2 += middleValue;
             }
         }
     }

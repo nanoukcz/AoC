@@ -1,41 +1,13 @@
 namespace AoC.Year2024;
 
-public class Day01(List<int> locations1, List<int> locations2)
+public class Day01 : BaseDay
 {
-    private const string Path = "../../../Year2024/inputs/Day01.txt";
-
-    public Day01() : this(GetLists().Item1, GetLists().Item2)
-    {
-    }
+    private readonly List<int> _locations1 = [];
+    private readonly List<int> _locations2 = [];
     
-    public void Runner()
+    protected override void ParseInput()
     {
-        var solution1 = SolvePartOne();
-        var solution2 = SolvePartTwo();
-        Console.WriteLine("DAY 1");
-        Console.WriteLine($"Part 1: {solution1}");
-        Console.WriteLine($"Part 2: {solution2}");
-        Console.WriteLine("###################");
-    }
-
-    private int SolvePartOne() 
-    {
-        return locations1.Select((t, i) => Math.Abs(t - locations2[i])).Sum();
-    }
-
-    private int SolvePartTwo()
-    {
-        var frequencyMap = locations2.GroupBy(x => x)
-            .ToDictionary(g => g.Key, g => g.Count());
-
-        return locations1.Sum(number => number * frequencyMap.GetValueOrDefault(number, 0));
-    }
-
-    private static (List<int>, List<int>) GetLists()
-    {
-        var (locations1, locations2) = (new List<int>(), new List<int>());
-        
-        foreach (var line in File.ReadLines(Path))
+        foreach (var line in File.ReadLines(InputFilePath))
         {
             var numbers = line.Split("   ")
                 .Where(x => int.TryParse(x, out _))
@@ -44,15 +16,27 @@ public class Day01(List<int> locations1, List<int> locations2)
 
             if (numbers.Count == 2)
             {
-                locations1.Add(numbers[0]);
-                locations2.Add(numbers[1]);
+                _locations1.Add(numbers[0]);
+                _locations2.Add(numbers[1]);
             }
         }
+        _locations1.Sort();
+        _locations2.Sort();
+    }
+    
+    protected override bool UseSeparatePartSolvers() => true;
 
-        locations1.Sort();
-        locations2.Sort();
-        
-        return (locations1, locations2);
+    protected override void SolvePartOne() 
+    {
+        Solution1 = _locations1.Select((t, i) => Math.Abs(t - _locations2[i])).Sum();
+    }
+
+    protected override void SolvePartTwo()
+    {
+        var frequencyMap = _locations2.GroupBy(x => x)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        Solution2 = _locations1.Sum(number => number * frequencyMap.GetValueOrDefault(number, 0));
     }
 }
 

@@ -2,40 +2,32 @@ using System.Text.RegularExpressions;
 
 namespace AoC.Year2024;
 
-public class Day03
+public partial class Day03 : BaseDay
 {
-    private const string Path = "../../../Year2024/inputs/Day03.txt";
-    private readonly Regex _regex = new(@"(do\(\))|(don\'t\(\))|mul\((\d{1,3}),(\d{1,3})\)");
-    private readonly MatchCollection _matches;
-
-    public Day03()
+    private readonly Regex _regex = MyRegex();
+    private List<Match> _matches = [];
+    
+    protected override void ParseInput()
     {
-        _matches = _regex.Matches(File.ReadAllText(Path));
+        _matches = _regex.Matches(File.ReadAllText(InputFilePath)).ToList();
     }
-    public void Runner()
-    {
-        var solution1 = SolvePartOne();
-        var solution2 = SolvePartTwo();
-        Console.WriteLine("DAY 3");
-        Console.WriteLine($"Part 1: {solution1}");
-        Console.WriteLine($"Part 2: {solution2}");
-        Console.WriteLine("###################");
-    }
+    
+    protected override bool UseSeparatePartSolvers() => true;
 
-    private int SolvePartOne()
+    protected override void SolvePartOne()
     {
-        return _matches
+        Solution1 = _matches
             .Where(match => match.Groups[3].Success && match.Groups[4].Success)
             .Select(match => int.Parse(match.Groups[3].Value) * int.Parse(match.Groups[4].Value))
             .Sum();
     }
 
-    private int SolvePartTwo()
+    protected override void SolvePartTwo()
     {
         var numbers = new List<int>();
         var checker = true;
 
-        foreach (Match match in _matches)
+        foreach (var match in _matches)
         {
             switch (match.Value)
             {
@@ -55,6 +47,9 @@ public class Day03
                 }
             }
         }
-        return numbers.Sum();
+        Solution2 = numbers.Sum();
     }
+
+    [GeneratedRegex(@"(do\(\))|(don\'t\(\))|mul\((\d{1,3}),(\d{1,3})\)")]
+    private static partial Regex MyRegex();
 }

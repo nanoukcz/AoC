@@ -6,16 +6,20 @@ public static class Program
     {
         Console.WriteLine("ADVENT OF CODE 2024");
         Console.WriteLine("###################");
-        var day01 = new Day01();
-        day01.Runner();
-        var day02 = new Day02();
-        day02.Runner();
-        var day03 = new Day03();
-        day03.Runner();
-        var day04 = new Day04();
-        day04.Runner();
-        var day05 = new Day05();
-        day05.Runner();
+
+        var days = new List<BaseDay>
+        {
+            new Day01(), 
+            new Day02(),
+            new Day03(),
+            new Day04(),
+            new Day05()
+        };
+
+        foreach (var day in days)
+        {
+            day.Run();
+        }
     }
     
 }

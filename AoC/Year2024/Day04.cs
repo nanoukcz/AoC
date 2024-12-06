@@ -1,23 +1,26 @@
 namespace AoC.Year2024;
 
-public class Day04
+public class Day04 : BaseDay
 {
-    private const string Path = "../../../Year2024/inputs/Day04.txt";
-    private readonly string[] _lines = File.ReadAllLines(Path);
+    private string[] _lines = [];
 
-    public void Runner()
+    protected override void ParseInput()
     {
-        var solution1 = SolveBothParts(true);
-        var solution2 = SolveBothParts(false);
-        Console.WriteLine("DAY 4");
-        Console.WriteLine($"Part 1: {solution1}");
-        Console.WriteLine($"Part 2: {solution2}");
-        Console.WriteLine("###################");
+        _lines = File.ReadAllLines(InputFilePath);
+    }
+    
+     protected override bool UseSeparatePartSolvers() => false;
+
+    protected override void SolveBothParts()
+    {
+        Solution1 = Solve(allDirections: true);
+        Solution2 = Solve(allDirections: false);
     }
 
-    private int SolveBothParts(bool allDirections)
+    private int Solve(bool allDirections)
     {
         var result = 0;
+
         for (var i = 0; i < _lines.Length; i++)
         {
             for (var j = 0; j < _lines[i].Length; j++)
@@ -36,6 +39,7 @@ public class Day04
 
         return result;
     }
+
 
     private int FindXmas(int i, int j)
     {
@@ -59,7 +63,7 @@ public class Day04
                     break;
                 }
                 
-                if (_lines[row][col] != (letters[k]))
+                if (_lines[row][col] != letters[k])
                 {
                     checker = false;
                     break;
